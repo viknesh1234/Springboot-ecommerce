@@ -1,22 +1,26 @@
+# 🛒 VikMart - Spring Boot E-Commerce Platform
 
-# 🛍️ Spring Boot E-Commerce Application
-
-A full-featured e-commerce web application built with **Java**, **Spring Boot**, **Thymeleaf**, and **PostgreSQL**. This platform allows users to browse products, manage their shopping cart, and complete secure purchases. Administrators have access to manage products, orders, and users through a dedicated admin panel.([github.com][1])
+Welcome to **VikMart**, a full-stack e-commerce web application built with **Java Spring Boot** and **PostgreSQL**. This project demonstrates a scalable backend for managing products, users, carts, and orders — ideal for learning or expanding into a production-level solution.
 
 ## 🚀 Features
 
-* **User Authentication & Authorization**: Secure user registration and login functionalities.
-* **Product Management**: Admins can add, update, and delete products.
-* **Shopping Cart**: Users can add products to their cart and proceed to checkout.
-* **Order Processing**: Efficient order placement and management system.
-* **Responsive Design**: User-friendly interface compatible with various devices.([github.com][1])
+- ✅ User registration and login (JWT secured)
+- 🛍️ Product catalog with add/update/delete (Admin only)
+- 🛒 Add-to-cart and checkout process
+- 💳 Order placement and history
+- 🔐 Role-based authentication (Admin/User)
+- 📦 RESTful API architecture
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-* **Backend**: Java, Spring Boot
-* **Frontend**: Thymeleaf, HTML, CSS, Bootstrap
-* **Database**: PostgreSQL
-* **Build Tool**: Maven
+| Layer        | Technology           |
+|--------------|----------------------|
+| Backend      | Java, Spring Boot    |
+| Database     | PostgreSQL           |
+| ORM          | Spring Data JPA      |
+| Security     | Spring Security, JWT |
+| Build Tool   | Maven                |
+| API Testing  | Postman / Swagger    |
 
 ## 📦 Installation & Setup
 
