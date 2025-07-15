@@ -1,85 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login Page</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding-top: 70px;
+    }
+    @media (max-width: 768px) {
+      .login-section {
+        flex-direction: column;
+      }
+      .login-box {
+        border: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
-		<div class="container-fluid">
-			<a class="navbar-brand me-5" th:href="@{/}">Ecommerce App</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item me-5">
-						<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
-					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link" th:href="@{/aboutUs}">About Us</a>
-					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link" th:href="@{/products}">Products</a>
-					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link" th:href="@{/contactUs}">Contact Us</a>
-					</li>
-				</ul>
-				<form class="d-flex" role="search">
-					<a th:href="@{/login}" class="btn btn-success">Login</a>
-				</form>
-			</div>
-		</div>
-	</nav>
-	
-	<div class="container-fluid vh-100 d-flex">
-		<div th:if="${error}" class="alert alert-error">
-			<p th:text="${error}"></p>
-		</div>
-		
-		<!-- Admin Login Section -->
-		<div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-light border-end">
-			<h2>Admin Login</h2>
-			<form class="w-75" th:action="@{/admin/verify/credentials}" th:object="${admin}">
-				<div class="mb-3">
-					<label for="adminUsername" class="form-label">Username</label>
-					<input type="text" class="form-control" name="email" placeholder="Enter your username">
-				</div>
-				<div class="mb-3">
-					<label for="adminPassword" class="form-label">Password</label>
-					<input type="password" class="form-control" name="password" placeholder="Enter your password">
-				</div>
-				<button type="submit" class="btn btn-primary w-100">Login</button>
-			</form>
-		</div>
 
-		<!-- User Login Section -->
-		<div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-success text-white">
-			<h2>User Login</h2>
-			<form class="w-75" th:action="@{/user/login}" th:object="${user}" method="post">
-				<div class="mb-3">
-					<label for="userUsername" class="form-label">Username</label>
-					<input type="text" class="form-control" name="email" placeholder="Enter your username">
-				</div>
-				<div class="mb-3">
-					<label for="userPassword" class="form-label">Password</label>
-					<input type="password" class="form-control" name="password" placeholder="Enter your password">
-				</div>
-				<button type="submit" class="btn btn-primary w-100">Login</button>
-			</form>
-		</div>
-	</div>
-	
-	<script>
-		var confirmationMessage = /*[[${error}]]*/ '';
-		console.log('Confirmation: ' + confirmationMessage);
-	</script>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand me-3" th:href="@{/}">Ecommerce App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item me-3"><a class="nav-link active" th:href="@{/home}" title="Home Page">Home</a></li>
+        <li class="nav-item me-3"><a class="nav-link" th:href="@{/aboutUs}" title="About Us Page">About Us</a></li>
+        <li class="nav-item me-3"><a class="nav-link" th:href="@{/products}" title="Products Page">Products</a></li>
+        <li class="nav-item me-3"><a class="nav-link" th:href="@{/contactUs}" title="Contact Us Page">Contact Us</a></li>
+      </ul>
+      <a th:href="@{/login}" class="btn btn-success" title="Login">Login</a>
+    </div>
+  </div>
+</nav>
 
-  	<!-- Bootstrap JS -->
-  	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Login Section -->
+<div class="container-fluid d-flex flex-wrap login-section mt-3" style="min-height: 85vh;">
+  <div class="container">
+
+    <!-- Error Message -->
+    <div th:if="${error}" class="alert alert-danger mt-3" role="alert">
+      <p th:text="${error}"></p>
+    </div>
+
+    <div class="row g-4 mt-4">
+      <!-- Admin Login -->
+      <div class="col-md-6 login-box bg-light p-4 border rounded">
+        <h3 class="text-center mb-4">Admin Login</h3>
+        <form th:action="@{/admin/verify/credentials}" th:object="${admin}" method="post">
+          <div class="mb-3">
+            <label for="adminUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" name="email" placeholder="Enter your username" required aria-label="Admin Username">
+          </div>
+          <div class="mb-3">
+            <label for="adminPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter your password" required aria-label="Admin Password">
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+
+      <!-- User Login -->
+      <div class="col-md-6 login-box bg-success text-white p-4 rounded">
+        <h3 class="text-center mb-4">User Login</h3>
+        <form th:action="@{/user/login}" th:object="${user}" method="post">
+          <div class="mb-3">
+            <label for="userUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" name="email" placeholder="Enter your username" required aria-label="User Username">
+          </div>
+          <div class="mb-3">
+            <label for="userPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter your password" required aria-label="User Password">
+          </div>
+          <button type="submit" class="btn btn-light w-100 text-dark">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional Debug Script -->
+<script>
+  var errorMsg = /*[[${error}]]*/ '';
+  console.log('Login Error: ' + errorMsg);
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

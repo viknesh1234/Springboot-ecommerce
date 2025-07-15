@@ -1,75 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+  <style>
+    body {
+      padding-top: 70px;
+    }
+    @media (max-width: 576px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+      .form-control, .btn {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top" data-bs-theme="dark">
-		<div class="container-fluid">
-			<a class="navbar-brand me-5" th:href="@{/}">Ecommerce App</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item me-5">
-						<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
-					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link" th:href="@{/aboutUs}">About Us</a>
-					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link" th:href="@{/products}">Products</a>
-					</li>
-					<li class="nav-item me-5">
-						<a class="nav-link" th:href="@{/contactUs}">Contact Us</a>
-					</li>
-				</ul>
-				<form class="d-flex" role="search">
-					<a th:href="@{/login}" class="btn btn-success">Login</a>
-				</form>
-			</div>
-		</div>
-	</nav>
 
-    <!-- Contact Form Section -->
-    <div class="container py-5">
-        <h2 class="text-center mb-4 py-5">Contact Us</h2>
-		
-		<div th:if="${confirmation}" class="alert alert-success">
-			<p th:text="${confirmation}"></p>
-		</div>
-		
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <form th:action="@{/send/message}" th:object="${message}" method="post">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" name="content" rows="4" placeholder="Write your message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                </form>
-            </div>
-        </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand me-3" th:href="@{/}">Ecommerce App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item me-3">
+          <a class="nav-link active" th:href="@{/home}" title="Home Page">Home</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link" th:href="@{/aboutUs}" title="About Us Page">About Us</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link" th:href="@{/products}" title="Products Page">Products</a>
+        </li>
+        <li class="nav-item me-3">
+          <a class="nav-link" th:href="@{/contactUs}" title="Contact Us Page">Contact Us</a>
+        </li>
+      </ul>
+      <a th:href="@{/login}" class="btn btn-success" title="Login">Login</a>
     </div>
+  </div>
+</nav>
 
-	<script>
-		var confirmationMessage = /*[[${confirmation}]]*/ '';
-	    console.log('Confirmation: ' + confirmationMessage);
-	</script>
-	
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Contact Form Section -->
+<div class="container py-5">
+  <h2 class="text-center mb-4 pt-5">Contact Us</h2>
+
+  <!-- Success Message -->
+  <div th:if="${confirmation}" class="alert alert-success" role="alert">
+    <p th:text="${confirmation}"></p>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form th:action="@{/send/message}" th:object="${message}" method="post">
+        <div class="mb-3">
+          <label for="name" class="form-label">Your Name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required title="Your Name" aria-label="Your Name" />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Your Email</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required title="Your Email" aria-label="Your Email" />
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Message</label>
+          <textarea id="content" name="content" class="form-control" rows="4" placeholder="Write your message" required title="Your Message" aria-label="Your Message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" title="Send Message" aria-label="Send Message">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Optional Debug Script -->
+<script>
+  var confirmationMessage = /*[[${confirmation}]]*/ '';
+  console.log('Confirmation: ' + confirmationMessage);
+</script>
+
+<!-- Bootstrap Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
