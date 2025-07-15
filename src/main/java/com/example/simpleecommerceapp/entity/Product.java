@@ -19,6 +19,8 @@ public class Product {
 	private double price;
 	
 	private String description;
+	
+	private String imageKeyword;  // ✅ NEW FIELD
 
 	public Long getId() {
 		return id;
@@ -52,4 +54,11 @@ public class Product {
 		this.description = description;
 	}
 
+	public String getImageKeyword() {
+		return imageKeyword;
+	}
+
+	public void setImageKeyword(String imageKeyword) {
+		this.imageKeyword = imageKeyword;
+	}
 }
