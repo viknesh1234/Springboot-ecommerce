@@ -5,51 +5,62 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "messages")
 public class Message {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String name;
-	
-	private String email;
-	
-	private String content;
 
-	public Long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @NotBlank(message = "Name is required")
+    @Size(max = 100)
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @NotBlank(message = "Email is required")
+    @Email(message = "Please enter a valid email")
+    @Size(max = 100)
+    private String email;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @NotBlank(message = "Message content is required")
+    @Size(max = 1000, message = "Message must be less than 1000 characters")
+    private String content;
 
-	public String getEmail() {
-		return email;
-	}
+    // --- Getters and Setters ---
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-	
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

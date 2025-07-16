@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Us</title>
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
   <style>
@@ -33,7 +34,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item me-3">
-          <a class="nav-link active" th:href="@{/home}" title="Home Page">Home</a>
+          <a class="nav-link" th:href="@{/home}" title="Home Page">Home</a>
         </li>
         <li class="nav-item me-3">
           <a class="nav-link" th:href="@{/aboutUs}" title="About Us Page">About Us</a>
@@ -42,7 +43,7 @@
           <a class="nav-link" th:href="@{/products}" title="Products Page">Products</a>
         </li>
         <li class="nav-item me-3">
-          <a class="nav-link" th:href="@{/contactUs}" title="Contact Us Page">Contact Us</a>
+          <a class="nav-link active" th:href="@{/contactUs}" title="Contact Us Page">Contact Us</a>
         </li>
       </ul>
       <a th:href="@{/login}" class="btn btn-success" title="Login">Login</a>
@@ -59,23 +60,31 @@
     <p th:text="${confirmation}"></p>
   </div>
 
+  <!-- Error Message (optional) -->
+  <div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+  </div>
+
   <!-- Contact Form -->
   <div class="row justify-content-center">
     <div class="col-md-8">
       <form th:action="@{/send/message}" th:object="${message}" method="post">
         <div class="mb-3">
           <label for="name" class="form-label">Your Name</label>
-          <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required title="Your Name" aria-label="Your Name" />
+          <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Enter your name" required title="Your Name" />
+          <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Your Email</label>
-          <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required title="Your Email" aria-label="Your Email" />
+          <input type="email" th:field="*{email}" id="email" class="form-control" placeholder="Enter your email" required title="Your Email" />
+          <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
         <div class="mb-3">
           <label for="content" class="form-label">Message</label>
-          <textarea id="content" name="content" class="form-control" rows="4" placeholder="Write your message" required title="Your Message" aria-label="Your Message"></textarea>
+          <textarea th:field="*{content}" id="content" class="form-control" rows="4" placeholder="Write your message" required title="Your Message"></textarea>
+          <div class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
         </div>
-        <button type="submit" class="btn btn-primary w-100" title="Send Message" aria-label="Send Message">Send Message</button>
+        <button type="submit" class="btn btn-primary w-100" title="Send Message">Send Message</button>
       </form>
     </div>
   </div>
